@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator – Autonomous Turfcare</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!--
+    README - ROI Calculator: Autonomous Turfcare
+    
+    How to embed via iframe:
+    <iframe src="YOUR-URL" width="100%" height="760" style="border:0;"></iframe>
+    
+    How to change the CTA link:
+    Edit the href attribute in the "Book a demo" button at the bottom of index.html
+    
+    URL query params for prefilling:
+    ?turf=25&labor=40000&workers=4&fuel=20000&robot=120000&savings=60&ccy=AUD
+    
+    Available parameters:
+    - turf: turf size in hectares
+    - labor: annual labor cost per worker
+    - workers: number of workers
+    - fuel: annual fuel & maintenance cost
+    - robot: robot fleet investment
+    - savings: savings factor percentage (0-90)
+    - ccy: currency (USD, AUD, MYR)
+    -->
+    
+    <div class="container">
+        <header class="header">
+            <h1>ROI Calculator – Autonomous Turfcare</h1>
+            <p class="subtitle">Estimate savings and payback when moving from traditional mowing to autonomous, electric operations.</p>
+        </header>
+
+        <div class="presets-section">
+            <h3>Quick Presets</h3>
+            <div class="preset-buttons">
+                <button type="button" class="preset-btn" data-preset="golf">9-hole course (fairway+rough)</button>
+                <button type="button" class="preset-btn" data-preset="stadium">Stadium pitch</button>
+                <button type="button" class="preset-btn" data-preset="municipal">Municipal park</button>
+            </div>
+        </div>
+
+        <form class="calculator-form" id="calculatorForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="turfSize">
+                        Turf size (hectares)
+                        <span class="info-icon" data-tooltip="Total area of turf to be maintained">ℹ️</span>
+                    </label>
+                    <input type="number" id="turfSize" min="0" step="0.1" value="10" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="laborCost">
+                        Annual labor cost per worker
+                        <span class="info-icon" data-tooltip="Average annual salary/wages per mowing worker">ℹ️</span>
+                    </label>
+                    <input type="number" id="laborCost" min="0" step="1000" value="40000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="workerCount">
+                        Number of workers dedicated to mowing
+                        <span class="info-icon" data-tooltip="Current staff count for mowing operations">ℹ️</span>
+                    </label>
+                    <input type="number" id="workerCount" min="0" step="1" value="3" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fuelMaintenance">
+                        Annual fuel & routine maintenance
+                        <span class="info-icon" data-tooltip="Current annual costs for fuel, oil, and basic maintenance">ℹ️</span>
+                    </label>
+                    <input type="number" id="fuelMaintenance" min="0" step="1000" value="15000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="robotInvestment">
+                        Robot fleet investment
+                        <span class="info-icon" data-tooltip="Total upfront cost for autonomous mowing robots">ℹ️</span>
+                    </label>
+                    <input type="number" id="robotInvestment" min="0" step="1000" value="60000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="savingsFactor">
+                        Expected savings factor (%)
+                        <span class="info-icon" data-tooltip="Percentage reduction in annual operating costs with robots">ℹ️</span>
+                    </label>
+                    <input type="number" id="savingsFactor" min="0" max="90" step="1" value="60" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="currency">Currency</label>
+                    <select id="currency" required>
+                        <option value="USD">USD ($)</option>
+                        <option value="AUD">AUD (A$)</option>
+                        <option value="MYR">MYR (RM)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="calculateBtn">Calculate ROI</button>
+                <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+                <button type="button" class="btn btn-ghost" id="copyLinkBtn">Copy Link</button>
+            </div>
+        </form>
+
+        <div class="results-section" id="resultsSection" aria-live="polite">
+            <div class="results-grid">
+                <div class="result-card">
+                    <h3>Current Annual Cost</h3>
+                    <div class="result-value" id="currentCost">$0</div>
+                </div>
+                <div class="result-card">
+                    <h3>Estimated Annual Cost with Robots</h3>
+                    <div class="result-value" id="robotCost">$0</div>
+                </div>
+                <div class="result-card">
+                    <h3>Annual Savings</h3>
+                    <div class="result-value highlight" id="annualSavings">$0</div>
+                </div>
+                <div class="result-card">
+                    <h3>Estimated Payback</h3>
+                    <div class="result-value" id="paybackPeriod">0 years</div>
+                    <div class="result-subtitle" id="paybackMonths">0 months</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="assumptions">
+            <h4>Assumptions</h4>
+            <p>Savings factor bundles labor reduction, fuel/fluids, and maintenance efficiencies from electric/autonomous operations.</p>
+            <p>Adjust inputs to your scenario; results are estimates.</p>
+        </div>
+
+        <div class="cta-section">
+            <a href="#" class="btn btn-ghost">Book a demo</a>
+        </div>
+
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
